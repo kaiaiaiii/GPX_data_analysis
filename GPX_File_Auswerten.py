@@ -23,9 +23,10 @@ from pandas import json_normalize
     ## plots aufraumen
     ## trittfrequenz bei gegebener Uebersetzung -> Tacho wird gebraucht
     ## Errechnete Leistung 
+    ## missing data points elemination
 
 ### Variable definition ###
-filename = "./FileName2.gpx" #askopenfilename() ## mal relativer pfadname
+filename = "./FileName.gpx" #askopenfilename() ## mal relativer pfadname
 latitude, longitude, elevation, time, velocity = [], [], [], [], []
 Leistung_Rollwiderstand, Leistung_Luftwiderstand, Leistung_Steigung = [],[],[]
 velocity = []
@@ -185,7 +186,7 @@ def Meshing(lon, lat, ele): ## TODO: Muss noch funktionieren
 ###############
 ### plotten ###
 ###############
-'''
+
 plot_Data_Points(time_seconds[:-1], velocities, "red", "export/velocity", "time", "velocity")
 plot_Data_Points(time_seconds, ele, "red", "export/Elevation", "time", "Elevation")
 plot_Data_Points(time_seconds[:-1], np.diff(ele), "green", "export/slope", "time", "Test") #TODO: Distance missing, right now only height change
@@ -253,5 +254,19 @@ plt.ylabel("latitude")
 plt.title("Height Profile")
 cbar = plt.colorbar(ax, label=r'$Velocity$')
 plt.savefig("export/Height Profile")
+plt.show()
+plt.close()
+'''
+##############################################################
+### plot track in elevation profile colorcode for velocity ###
+##############################################################
+
+plt.figure(figsize=(8, 5)) # TODO: Automatic width and height
+ax = plt.scatter(time_seconds[:-1], ele[:-1], c = velocities, s = 0.2, cmap = 'plasma' , vmax= 3*median_velo, vmin=0)
+plt.xlabel("time")
+plt.ylabel("elevatio")
+plt.title("Height Profile")
+plt.savefig("export/Height_Velo")
+cbar = plt.colorbar(ax, label=r'$Velocity$')
 plt.show()
 plt.close()
