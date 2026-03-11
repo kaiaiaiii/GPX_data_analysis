@@ -27,7 +27,7 @@ from pandas import json_normalize
     ## missing data points elemination
 
 ### Variable definition ###
-filename = "./FileName2.gpx" #askopenfilename() ## mal relativer pfadname
+filename = "./inputdata/FileName.gpx" #askopenfilename() ## mal relativer pfadname
 latitude, longitude, elevation, time, velocity = [], [], [], [], []
 Leistung_Rollwiderstand, Leistung_Luftwiderstand, Leistung_Steigung = [],[],[]
 velocity = []
@@ -177,14 +177,15 @@ print(median_velo)
 # 3D-print the points -> TODO
 #own implementation, looking for libraries later
 
-def Meshing(lon, lat, ele): ## TODO: Muss noch funktionieren
-    lon_flat = np.array(lon)
-    lat_flat = np.array(lat)
-    ele_flat = np.array(ele).reshape(lon.shape)
-    grid = pyvista.StructuredGrid(lon_flat, lat_flat, ele_flat)
-    surface = grid.extract_surface(algorithm="dataset_surface").triangulate()
-    surface.save("export/mesh.stl")
-    surface.plot()
+def Meshing(lon, lat, ele):
+    lon_flat = lon.flatten()
+    lat_flat = lat.flatten()
+    ele_flat = np.array(ele).flatten()
+    arraydata = np.column_stack((lat_flat, lon_flat, ele_flat))
+    pointcloud = pyvista.PolyData(arraydata)
+    pointcloud.plot(style = "points", point_size = 10.0) ## 
+    mesh = pointcloud.reconstruct_surface().triangulate()
+    mesh.save("exports/mesh.stl")
 
 
 def data_to_stl(lon, lat, ele, filename="export/terrain.stl", z_scale=1.0): #, base_height, model_size_mm):

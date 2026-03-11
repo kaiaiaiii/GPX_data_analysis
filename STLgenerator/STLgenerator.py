@@ -3,12 +3,13 @@ import pyvista
 import open3d as o3d
 from stl import mesh
 
-def Meshing(lon, lat, ele): ## TODO: Muss noch funktionieren
+def Meshing(lon, lat, ele):
     lon_flat = lon.flatten()
     lat_flat = lat.flatten()
     ele_flat = np.array(ele).flatten()
     arraydata = np.column_stack((lat_flat, lon_flat, ele_flat))
-    pointcloud = pyvista.PolyData(arraydata)
+    pointcloud = pyvista.PolyData(arraydata,  faces=arraydata.GetPolys())
+    pointcloud.plot(style = "points", pointsize = 10.0) ## 
     mesh = pointcloud.reconstruct_surface().triangulate()
     mesh.save("exports/mesh.stl")
 
@@ -37,7 +38,7 @@ def data_to_stl(lon, lat, ele, filename="export/terrain.stl", z_scale=1.0, base_
     terrain_mesh.save(filename)
     print("Triangles:", n_faces)
 
-    
+
 '''
 def ShowStlFile(filename):
     mesh = o3d.io.read_triangle_mesh(filename)
