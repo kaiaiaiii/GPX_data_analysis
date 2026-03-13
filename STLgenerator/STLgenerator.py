@@ -10,7 +10,7 @@ def Meshing(lon, lat, ele):
     pointcloud = pyvista.PolyData(arraydata)
     pointcloud.plot(style = "points", point_size = 10.0) ## 
     mesh = pointcloud.reconstruct_surface().triangulate()
-    mesh.save("exports/mesh.stl")
+    mesh.save("export/mesh.stl")
 
 
 '''

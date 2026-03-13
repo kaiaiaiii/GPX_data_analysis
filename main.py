@@ -39,8 +39,8 @@ Meshing(lon_grid, lat_grid, elevation_map)
 ################
 
 
-plot_Data_Points(time_seconds[:-1], velocities, "red", "exports/velocity", "time", "velocity")
-plot_Data_Points(time_seconds, elevation_map, "red", "export/Elevation", "time", "Elevation")
+plot_Data_Points(time_seconds[:-1], velocities, "red", "export/velocity", "time", "velocity")
+plot_Data_Points(time_seconds, elevation_along_path, "red", "export/Elevation", "time", "Elevation")
 plot_Data_Points(time_seconds[:-1], np.diff(elevation_along_path), "green", "export/slope", "time", "Test")
 
 plt.figure(constrained_layout=True)
