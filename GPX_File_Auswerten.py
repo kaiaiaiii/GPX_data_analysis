@@ -28,7 +28,7 @@ from pandas import json_normalize
 
 ### Variable definition ###
 filename = "./inputdata/FileName.gpx" #askopenfilename() ## mal relativer pfadname
-latitude, longitude, elevation, time, velocity = [], [], [], [], []
+latitude, longitude, elevation, time, velocity,rolling_avg_velo = [], [], [], [], [], []
 Leistung_Rollwiderstand, Leistung_Luftwiderstand, Leistung_Steigung = [],[],[]
 velocity = []
 
@@ -53,7 +53,7 @@ def plot_Data_Points(x, y, color, Name, xlabel, ylabel):
     plt.ylabel(ylabel)
     plt.title(Name)
     plt.legend()
-    plt.savefig(Name + xlabel + ylabel)
+   # plt.savefig(Name + xlabel + ylabel)
     plt.show()
     plt.close()
 
@@ -159,6 +159,10 @@ median_velo = np.median(velocities)
 average_velo = np.average(velocities)
 maximum_velo = np.max(velocities)
 maximum_ele = np.max(ele)
+avg = 0
+for i in range(1, len(velocities)):
+    avg += velocities[i]/i
+    rolling_avg_velo.append(avg) 
 
 print("maximum elevation: ")
 print(maximum_ele)
@@ -219,6 +223,7 @@ def data_to_stl(lon, lat, ele, filename="export/terrain.stl", z_scale=1.0): #, b
 
 plot_Data_Points(time_seconds[:-1], velocities, "red", "export/velocity", "time", "velocity")
 plot_Data_Points(time_seconds, ele, "red", "export/Elevation", "time", "Elevation")
+plot_Data_Points(time_seconds, rolling_avg_velo, "red", "export/Elevation", "time", "Elevation")
 plot_Data_Points(time_seconds[:-1], np.diff(ele), "green", "export/slope", "time", "Test") #TODO: Distance missing, right now only height change
 
 ###################################################
@@ -290,6 +295,8 @@ plt.close()
 ##############################################################
 ### plot track in elevation profile colorcode for velocity ###
 ##############################################################
+plot_Data_Points(time_seconds[:-2], rolling_avg_velo, "red", "export/Elevation", "time", "rolling avg velo")
+'''
 Data_to_plot = get_elevation_from_Api_post(lat, long) 
 lon_grid, lat_grid = np.meshgrid(Data_to_plot[0], Data_to_plot[1])
 Meshing(lat_grid, lon_grid, Data_to_plot[2])
@@ -300,7 +307,8 @@ ax = plt.scatter(time_seconds[:-1], ele[:-1], c = velocities, s = 0.2, cmap = 'p
 plt.xlabel("time")
 plt.ylabel("elevation")
 plt.title("Height Profile")
-plt.savefig("export/Height_Velo")
+#plt.savefig("export/Height_Velo")
 cbar = plt.colorbar(ax, label=r'$Velocity$')
 plt.show()
 plt.close()
+'''
