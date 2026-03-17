@@ -85,10 +85,10 @@ def data_calculations(longitude, latitude, elevation, time_seconds):
 
 def rolling_avg_velo_calculation(velo):
     avg = 0
-    velocities = []
+    rolling_avg_velo = []
     for i in range(1, len(velo)):
-    avg += velocities[i]/i
-    rolling_avg_velo.append(avg) 
+        avg += velo[i]/i
+        rolling_avg_velo.append(avg) 
     return rolling_avg_velo
 
 
