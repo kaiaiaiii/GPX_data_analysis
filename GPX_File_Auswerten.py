@@ -216,7 +216,7 @@ def data_to_stl(lon, lat, ele, filename="export/terrain.stl", z_scale=1.0): #, b
     terrain_mesh.save(filename)
     print("Triangles:", n_faces)
 
-'''
+
 ###############
 ### plotten ###
 ###############
@@ -291,12 +291,12 @@ cbar = plt.colorbar(ax, label=r'$Velocity$')
 plt.savefig("export/Height Profile")
 plt.show()
 plt.close()
-'''
+
 ##############################################################
 ### plot track in elevation profile colorcode for velocity ###
 ##############################################################
 plot_Data_Points(time_seconds[:-2], rolling_avg_velo, "red", "export/Elevation", "time", "rolling avg velo")
-'''
+
 Data_to_plot = get_elevation_from_Api_post(lat, long) 
 lon_grid, lat_grid = np.meshgrid(Data_to_plot[0], Data_to_plot[1])
 Meshing(lat_grid, lon_grid, Data_to_plot[2])
@@ -311,4 +311,3 @@ plt.title("Height Profile")
 cbar = plt.colorbar(ax, label=r'$Velocity$')
 plt.show()
 plt.close()
-'''
