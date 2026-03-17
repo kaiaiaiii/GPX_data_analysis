@@ -8,7 +8,6 @@ import cartopy.feature as cfeature
 from tkinter.filedialog import askopenfilename
 import numpy as np
 import matplotlib.pyplot as plt
-import math
 
 
 gpxfilename = "./inputdata/FileName.gpx" #askopenfilename()
@@ -42,10 +41,11 @@ Meshing(lon_grid, lat_grid, elevation_map)
 ################
 
 
-#plot_Data_Points(time_seconds[:-1], velocities, "red", "export/velocity", "time", "velocity")
-#plot_Data_Points(time_seconds, elevation_along_path, "red", "export/Elevation", "time", "Elevation")
-#plot_Data_Points(time_seconds[:-1], np.diff(elevation_along_path), "green", "export/slope", "time", "Test")
-'''
+plot_Data_Points(time_seconds[:-1], velocities, "red", "export/velocity", "time", "velocity")
+plot_Data_Points(time_seconds, elevation_along_path, "red", "export/Elevation", "time", "Elevation")
+plot_Data_Points(time_seconds[:-1], np.diff(elevation_along_path), "green", "export/slope", "time", "Test")
+plot_Data_Points(time_seconds, rolling_avg_velo, "red", "export/Elevation", "time", "Elevation")
+
 plt.figure(constrained_layout=True)
 ax = plt.scatter(longitude, latitude, c = elevation_along_path, s = 0.2, cmap = 'plasma' )
 plt.xlabel("longitude")
@@ -55,10 +55,6 @@ plt.colorbar(ax, label=r'$Elevation$')
 plt.savefig("export/Track")
 plt.show()
 plt.close()
-
-###############################
-### Histogram of velocities ###
-###############################
 
 plt.figure(figsize=(8, 5))
 plt.hist(velocities, 500)
@@ -70,9 +66,6 @@ plt.savefig("export/Histogram")
 plt.show()
 plt.close()
 
-#########################
-### plot track in map ###
-#########################
 velocities = np.append(velocities, velocities[-1])
 fig = plt.figure(figsize=(8, 8))
 proj = ccrs.LambertConformal(central_latitude=np.average(latitude),central_longitude=np.average(longitude))
@@ -89,10 +82,6 @@ plt.savefig("export/Velocity")
 plt.show()
 plt.close()
 
-##############################################################
-### plot track in map colorcode for elevation and velocity ###
-##############################################################
-
 Data_to_plot = get_elevation_from_Api_post(latitude, longitude) 
 lon_grid, lat_grid = np.meshgrid(Data_to_plot[0], Data_to_plot[1])
 Meshing(lon_grid, lat_grid, Data_to_plot[2])
@@ -108,14 +97,6 @@ plt.savefig("export/Height Profile")
 plt.show()
 plt.close()
 
-##############################################################
-### plot track in elevation profile colorcode for velocity ###
-##############################################################
-# Data_to_plot = get_elevation_from_Api_post(lat, long) 
-# lon_grid, lat_grid = np.meshgrid(Data_to_plot[0], Data_to_plot[1])
-# Meshing(lat_grid, lon_grid, Data_to_plot[2])
-# data_to_stl(lat_grid, lon_grid, Data_to_plot[2])
-'''
 plt.figure(figsize=(8, 5)) # TODO: Automatic width and height
 ax = plt.scatter(time_seconds[:-1], elevation_along_path[:-1], c = velocities, s = 0.2, cmap = 'plasma' , vmax= 3*median_velo, vmin=0)
 plt.xlabel("time")

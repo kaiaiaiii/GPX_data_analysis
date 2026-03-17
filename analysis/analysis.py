@@ -83,9 +83,19 @@ def data_calculations(longitude, latitude, elevation, time_seconds):
     print(median_velo)
     return velocities, median_velo, average_velo, maximum_velo, maximum_ele
 
+def rolling_avg_velo_calculation(velo):
+    avg = 0
+    velocities = []
+    for i in range(1, len(velo)):
+    avg += velocities[i]/i
+    rolling_avg_velo.append(avg) 
+    return rolling_avg_velo
+
+
 def data_analysis(filename):
     long, lat, ele, time = read_from_file(filename)
     longitude, latitude, elevation_along_path, time_seconds = data_cleansing(long, lat, ele, time)
     velocities, median_velo, average_velo, maximum_velo, maximum_ele = data_calculations(longitude, latitude, elevation_along_path, time_seconds)
+    rolling_avg_velo = rolling_avg_velo_calculation(velocities)
     longitude_vector, latitude_vector, elevation_map = get_elevation_from_Api_post(longitude, latitude)
-    return longitude_vector, latitude_vector, elevation_along_path, elevation_map
+    return longitude_vector, latitude_vector, elevation_along_path, elevation_map, rolling_avg_velo
