@@ -34,8 +34,8 @@ def plot_all(long, lat, ele, time_seconds, average_velo):
     plt.title("Track")
     plt.colorbar(ax, label=r'$Elevation$')
     plt.savefig("export/Track")
-    plt.show()
-    plt.close()
+#    plt.show()
+#    plt.close()
 
     ###############################
     ### Histogram of velocities ###
@@ -48,8 +48,8 @@ def plot_all(long, lat, ele, time_seconds, average_velo):
     plt.title("velocity over time")
     plt.xlim([5, 2*average_velo])#plt.legend()
     plt.savefig("export/Histogram")
-    plt.show()
-    plt.close()
+#    plt.show()
+#    plt.close()
 
     #########################
     ### plot track in map ###
@@ -67,8 +67,8 @@ def plot_all(long, lat, ele, time_seconds, average_velo):
     sc = ax.scatter(long, lat, c=velocities,  cmap='plasma', s=0.2, transform=ccrs.PlateCarree(), vmax= 2*average_velo, vmin=5)
     cbar = plt.colorbar(sc, label=r'$Velocity$')
     plt.savefig("export/Velocity")
-    plt.show()
-    plt.close()
+#    plt.show()
+#    plt.close()
 
     ##############################################################
     ### plot track in map colorcode for elevation and velocity ###
@@ -86,8 +86,8 @@ def plot_all(long, lat, ele, time_seconds, average_velo):
     plt.title("Height Profile")
     cbar = plt.colorbar(ax, label=r'$Velocity$')
     plt.savefig("export/Height Profile")
-    plt.show()
-    plt.close()
+#    plt.show()
+#    plt.close()
 
     ##############################################################
     ### plot track in elevation profile colorcode for velocity ###
