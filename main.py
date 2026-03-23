@@ -23,7 +23,6 @@ velocities, median_velo, average_velo, maximum_velo, maximum_ele = data_calculat
 longitude_vector, latitude_vector, elevation_map = get_elevation_from_Api_post(longitude, latitude)
 lon_grid, lat_grid = np.meshgrid(longitude_vector, latitude_vector)
 
-
 ###############################
 ### Bike Parameter Analysis ###
 ###############################
