@@ -9,6 +9,8 @@ from tkinter.filedialog import askopenfilename
 import numpy as np
 import matplotlib.pyplot as plt
 
+##TODO##
+##Multiple files, gui, stl
 
 gpxfilename = "./inputdata/FileName.gpx" #askopenfilename()
 cadencefilename = "./inputdata/CadenceData.txt" #askopenfilename()
