@@ -1,5 +1,6 @@
 from results.plotGPXdata import plot_Data_Points
 from analysis.analysis import read_from_file, data_cleansing, data_calculations
+from analysis.multipleFiles import multiple_file_analysis
 from analysis.APIrequest import get_elevation_from_Api_post
 from analysis.cadence import cadence_from_data
 from STLgenerator.STLgenerator import Meshing
@@ -14,6 +15,7 @@ import matplotlib.pyplot as plt
 
 gpxfilename = "./inputdata/FileName.gpx" #askopenfilename()
 cadencefilename = "./inputdata/CadenceData.txt" #askopenfilename()
+datafolder = "./inputdata/data"
 
 #########################
 ### GPX File Analysis ###
