@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 ##TODO##
-##Multiple files, gui, stl
+##Multiple files, gui, stl, progression analysis
 
 gpxfilename = "./inputdata/FileName.gpx" #askopenfilename()
 cadencefilename = "./inputdata/CadenceData.txt" #askopenfilename()
